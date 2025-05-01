@@ -36,9 +36,10 @@ export default {
   <div class="main-container">
     <h1 class="header">Привет, мир!</h1>
     <img width="200" :src="imgSrc" alt="" />
+    <h2 class="header">Актуальные новости</h2>
     <app-input
       style="margin: 8px 0"
-      placeholder="Добавить ещё"
+      placeholder="Добавить ещё новость"
       :value="inputValue"
       @input="
         inputValue = $event.target.value;
@@ -46,8 +47,7 @@ export default {
       "
       @keypress.enter="addItem"
     />
-    <div v-if="isAdded" style="margin: 4px 0">Добавлено</div>
-    <h2 class="header">Актуальные новости</h2>
+    <div v-if="isAdded" style="margin: 8px 0">Добавлено</div>
     <div class="news-container">
       <NewsItem
         v-for="item in news"
