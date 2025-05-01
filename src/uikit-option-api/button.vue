@@ -3,19 +3,18 @@ export default {
   props: {
     renderStrategy: {
       type: String,
-      required: true,
+      required: false,
+      default: "primary",
     },
     disabled: {
       type: Boolean,
       required: false,
+      default: false,
     },
     type: {
       type: String,
-      required: true,
-    },
-    htmlContent: {
-      type: String,
-      required: true,
+      required: false,
+      default: "button",
     },
   },
   data() {
@@ -28,7 +27,7 @@ export default {
 
 <template>
   <button :type="type" :class="`btn ${renderStrategy}`" :disabled="disabled">
-    {{ this.htmlContent }}
+    <slot />
   </button>
 </template>
 
