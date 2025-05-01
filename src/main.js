@@ -6,6 +6,6 @@ import Button from "./uikit-option-api/button.vue";
 document.fonts.ready.then(() => {
   const app = createApp(App);
 
-  app.component("CustomButton", Button);
+  app.component("AppButton", Button);
   app.mount("#app");
 });
