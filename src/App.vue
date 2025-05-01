@@ -8,7 +8,23 @@ export default {
     return {
       news: defaultNews,
       imgSrc: SbercatPng,
+      inputValue: "",
+      isAdded: false,
     };
+  },
+  methods: {
+    addItem() {
+      this.inputValue = this.inputValue.trim();
+      if (this.inputValue) {
+        this.news.push({
+          id: Date.now(),
+          title: this.inputValue,
+          isOpen: false,
+        });
+        this.inputValue = "";
+        this.isAdded = true;
+      }
+    },
   },
   components: {
     NewsItem,
@@ -20,6 +36,17 @@ export default {
   <div class="main-container">
     <h1 class="header">Привет, мир!</h1>
     <img width="200" :src="imgSrc" alt="" />
+    <app-input
+      style="margin: 8px 0"
+      placeholder="Добавить ещё"
+      :value="inputValue"
+      @input="
+        inputValue = $event.target.value;
+        isAdded = false;
+      "
+      @keypress.enter="addItem"
+    />
+    <div v-if="isAdded" style="margin: 4px 0">Добавлено</div>
     <h2 class="header">Актуальные новости</h2>
     <div class="news-container">
       <NewsItem
