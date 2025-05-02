@@ -1,5 +1,6 @@
 <script>
 import NewsItem from "./NewsItem.vue";
+import TextComponent from "./TextComponent.vue";
 import defaultNews from "./default-news";
 import SbercatPng from "./assets/sbercat.png";
 
@@ -10,6 +11,11 @@ export default {
       imgSrc: SbercatPng,
       inputValue: "",
       isAdded: false,
+    };
+  },
+  provide() {
+    return {
+      news: this.news,
     };
   },
   methods: {
@@ -28,16 +34,20 @@ export default {
   },
   components: {
     NewsItem,
+    TextComponent,
   },
 };
 </script>
 
 <template>
   <div class="main-container">
+    <async-component></async-component>
+    <component :is="'TextComponent'"></component>
     <h1 class="header">Привет, мир!</h1>
     <img width="200" :src="imgSrc" alt="" />
     <h2 class="header">Актуальные новости</h2>
     <app-input
+      ref="myBtn"
       style="margin: 8px 0"
       placeholder="Добавить ещё новость"
       :value="inputValue"
