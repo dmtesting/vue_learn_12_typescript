@@ -58,6 +58,8 @@ export default {
   align-items: center;
   justify-content: center;
 
+  transition: all 0.2s ease;
+
   &:checked {
     background: #0363c9;
     border: 1px solid #0363c9;

@@ -5,6 +5,7 @@ import Button from "./uikit-option-api/button.vue";
 import Input from "./uikit-option-api/input.vue";
 import Checkbox from "./uikit-option-api/checkbox.vue";
 import Radio from "./uikit-option-api/radio.vue";
+import Select from "./uikit-option-api/select.vue";
 
 document.fonts.ready.then(() => {
   const app = createApp(App);
@@ -13,5 +14,6 @@ document.fonts.ready.then(() => {
   app.component("AppInput", Input);
   app.component("AppCheckbox", Checkbox);
   app.component("AppRadio", Radio);
+  app.component("AppSelect", Select);
   app.mount("#app");
 });
