@@ -1,0 +1,74 @@
+<script>
+export default {
+  props: {
+    renderStrategy: {
+      type: String,
+      required: false,
+      default: "checkbox",
+    },
+    checked: {
+      type: Boolean,
+      required: false,
+      default: null,
+    },
+  },
+  data() {
+    return {
+      innerChecked: false,
+    };
+  },
+};
+</script>
+
+<template>
+  <label class="container">
+    <input
+      v-if="typeof checked === 'boolean'"
+      type="checkbox"
+      :class="renderStrategy"
+      :checked="checked"
+    />
+    <input
+      v-else
+      type="checkbox"
+      :class="renderStrategy"
+      :checked="innerChecked"
+      @click="innerChecked = !innerChecked"
+    />
+    <div><slot /></div>
+  </label>
+</template>
+
+<style scoped>
+.container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.checkbox {
+  all: unset;
+  box-sizing: border-box;
+  border: 1px solid #909ca9;
+  border-radius: 4px;
+  width: 16px;
+  height: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:checked {
+    background: #0363c9;
+    border: 1px solid #0363c9;
+  }
+  &::before {
+    content: "";
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    background: #fff;
+  }
+}
+</style>
