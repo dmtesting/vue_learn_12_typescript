@@ -1,28 +1,77 @@
 <script>
+import axios from "axios";
+import { API_URL } from "./settings";
+import AppPeopleList from "./AppPeopleList.vue";
+
 export default {
+  components: {
+    AppPeopleList,
+  },
   data() {
     return {
-      value: "",
-      nameValue: "",
-      ageValue: "",
-      relocateValue: null,
-      skills: {
-        Vuex: false,
-        "Vue CLI": false,
-        "Vue Router": false,
-      },
-      options: [
-        { id: 1, displayName: "Москва", selected: true },
-        { id: 2, displayName: "Санкт-Петербург", selected: false },
-      ],
+      name: "",
+      people: [],
+      alert: null,
+      loading: false,
     };
   },
+  mounted() {
+    this.loadPeople();
+  },
   methods: {
-    changeOptions(evt, newOptions) {
-      this.options = newOptions;
+    async createPerson() {
+      const response = await axios.post(
+        `${API_URL}/people.json`,
+        { firstName: this.name },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      this.people.push({ id: response.data.name, firstName: this.name });
     },
-    submit(evt) {
-      console.log("fds", this.relocateValue);
+    async loadPeople() {
+      try {
+        this.loading = true;
+
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        const response = await axios.get(`${API_URL}/people.json`);
+
+        if (!response.data) {
+          throw new Error("Список пуст!");
+        }
+
+        this.people = Object.entries(response.data).map((entry) => ({
+          id: entry[0],
+          firstName: entry[1].firstName,
+        }));
+      } catch (err) {
+        this.alert = {
+          type: "danger",
+          title: "Ошибка!",
+          text: err.message,
+        };
+      } finally {
+        this.loading = false;
+      }
+    },
+    async removePerson(id) {
+      await axios.delete(`${API_URL}/people/${id}.json`);
+
+      const index = this.people.findIndex((item) => item.id === id);
+
+      if (index !== -1) {
+        this.people.splice(index, 1);
+
+        this.alert = {
+          type: "primary",
+          title: "Успешно!",
+          text: "Пользователь был удалён",
+        };
+      }
     },
   },
 };
@@ -30,50 +79,49 @@ export default {
 
 <template>
   <div class="form-container">
-    <h2 class="header">Анкета на Vue разработчика!</h2>
-    <form @submit.prevent="submit">
+    <h2 class="header">Работа с базой данный</h2>
+    <form class="form" @submit.prevent="createPerson">
       <p>Как тебя зовут?</p>
-      <app-input placeholder="Введи имя" v-model="nameValue" />
-      <p>Введи возраст</p>
-      <app-input
-        placeholder="Введи возраст"
-        renderStrategy="number"
-        v-model="ageValue"
-      />
-      <p>Твой город</p>
-      <app-select
-        :options="options"
-        placeholder="Введи город"
-        @change-options="changeOptions"
-      />
-      <p>Готов к переезду в Токио?</p>
-      <app-radio name="relocate" v-model="relocateValue" value="yes">
-        Да
-      </app-radio>
-      <app-radio name="relocate" v-model="relocateValue" value="no">
-        Нет
-      </app-radio>
-      <p>Что знаешь во Vue?</p>
-      <app-checkbox v-model="skills['Vuex']">Vuex</app-checkbox>
-      <app-checkbox v-model="skills['Vue CLI']">Vue CLI</app-checkbox>
-      <app-checkbox v-model="skills['Vue Router']">Vue Router</app-checkbox>
-      <hr />
-      <app-button type="submit">Отправить</app-button>
+      <app-input placeholder="Введи имя" v-model="name" />
+      <div class="h-gap" />
+      <app-button type="submit">Создать человека</app-button>
+      <div class="h-gap" />
+      <app-button type="button" @click="loadPeople">
+        Загрузить список
+      </app-button>
+      <div class="h-gap" />
     </form>
+    <div class="h-gap" />
+    <AppAlert
+      v-if="alert"
+      :type="alert.type"
+      :title="alert.title"
+      :text="alert.text"
+      @close="alert = null"
+    />
+    <div class="h-gap" />
+    <AppLoader v-if="loading" />
+    <AppPeopleList v-else :people="people" @remove="removePerson" />
+    <div class="h-gap" />
   </div>
 </template>
 
 <style scoped>
 .header {
+  padding: 16px;
   margin: 0;
-  margin-bottom: 16px;
 }
 .form-container {
-  padding: 16px;
-  margin: auto;
   margin-top: 16px;
   background: #fff;
   border-radius: 8px;
   max-width: 400px;
+}
+.form {
+  padding: 16px;
+  margin: auto;
+}
+.h-gap {
+  height: 8px;
 }
 </style>
