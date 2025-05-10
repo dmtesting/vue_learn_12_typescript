@@ -2,43 +2,20 @@
 export default {
   props: {
     options: {
-      type: Array,
-      required: false,
-      default: [{ id: "default", displayName: "value", selected: true }],
-    },
-  },
-  methods: {
-    handleChange(evt) {
-      const newOptions = JSON.parse(JSON.stringify(this.options));
-
-      const id = evt.target.value;
-      const option = newOptions.find((opt) => opt.id.toString() === id);
-
-      if (option) {
-        if (!evt.target.multiple) {
-          newOptions.forEach((opt) => {
-            opt.selected = false;
-          });
-          option.selected = true;
-        } else {
-          option.selected = !option.selected;
-        }
-      }
-
-      this.$emit("change-options", evt, newOptions);
+      type: Array, // [{ id: "default", displayName: "value" }]
+      required: true,
     },
   },
 };
 </script>
 
 <template>
-  <select class="select" @change="handleChange">
+  <select class="select">
     <option
       v-for="option in options"
       class="option"
       :key="option.id"
       :value="option.id"
-      :selected="option.selected"
     >
       {{ option.displayName }}
     </option>
@@ -59,11 +36,5 @@ export default {
   &:focus {
     outline: none;
   }
-  &:not(:last-child)::after {
-    content: ", ";
-  }
-}
-.option[selected] {
-  text-decoration: underline;
 }
 </style>

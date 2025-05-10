@@ -1,6 +1,10 @@
 <script>
 export default {
   props: {
+    name: {
+      type: String,
+      required: false,
+    },
     renderStrategy: {
       type: String,
       required: false,
@@ -12,11 +16,6 @@ export default {
       default: null,
     },
   },
-  data() {
-    return {
-      innerChecked: false,
-    };
-  },
 };
 </script>
 
@@ -25,16 +24,11 @@ export default {
     <input
       v-if="typeof checked === 'boolean'"
       type="radio"
+      :name="name"
       :class="renderStrategy"
       :checked="checked"
     />
-    <input
-      v-else
-      type="radio"
-      :class="renderStrategy"
-      :checked="innerChecked"
-      @click="innerChecked = !innerChecked"
-    />
+    <input v-else type="radio" :name="name" :class="renderStrategy" />
     <div><slot /></div>
   </label>
 </template>

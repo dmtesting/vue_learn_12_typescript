@@ -1,21 +1,21 @@
 <script>
 export default {
+  emits: "update:modelValue",
   props: {
+    name: {
+      type: String,
+      required: false,
+    },
     renderStrategy: {
       type: String,
       required: false,
       default: "checkbox",
     },
-    checked: {
+    modelValue: {
       type: Boolean,
       required: false,
       default: null,
     },
-  },
-  data() {
-    return {
-      innerChecked: false,
-    };
   },
 };
 </script>
@@ -23,18 +23,14 @@ export default {
 <template>
   <label class="container">
     <input
-      v-if="typeof checked === 'boolean'"
+      v-if="typeof modelValue === 'boolean'"
       type="checkbox"
+      :name="name"
       :class="renderStrategy"
-      :checked="checked"
+      :checked="modelValue"
+      @change="$emit('update:modelValue', $event.target.checked)"
     />
-    <input
-      v-else
-      type="checkbox"
-      :class="renderStrategy"
-      :checked="innerChecked"
-      @click="innerChecked = !innerChecked"
-    />
+    <input v-else type="checkbox" :name="name" :class="renderStrategy" />
     <div><slot /></div>
   </label>
 </template>

@@ -3,6 +3,14 @@ export default {
   data() {
     return {
       value: "",
+      nameValue: "",
+      ageValue: "",
+      relocateValue: null,
+      skills: {
+        Vuex: false,
+        "Vue CLI": false,
+        "Vue Router": false,
+      },
       options: [
         { id: 1, displayName: "Москва", selected: true },
         { id: 2, displayName: "Санкт-Петербург", selected: false },
@@ -13,6 +21,9 @@ export default {
     changeOptions(evt, newOptions) {
       this.options = newOptions;
     },
+    submit(evt) {
+      console.log("fds", this.relocateValue);
+    },
   },
 };
 </script>
@@ -20,11 +31,15 @@ export default {
 <template>
   <div class="form-container">
     <h2 class="header">Анкета на Vue разработчика!</h2>
-    <form>
+    <form @submit.prevent="submit">
       <p>Как тебя зовут?</p>
-      <app-input placeholder="Введи имя" />
+      <app-input placeholder="Введи имя" v-model="nameValue" />
       <p>Введи возраст</p>
-      <app-input placeholder="Введи возраст" changeStrategy="number" />
+      <app-input
+        placeholder="Введи возраст"
+        renderStrategy="number"
+        v-model="ageValue"
+      />
       <p>Твой город</p>
       <app-select
         :options="options"
@@ -32,12 +47,16 @@ export default {
         @change-options="changeOptions"
       />
       <p>Готов к переезду в Токио?</p>
-      <app-radio>Да</app-radio>
-      <app-radio>Нет</app-radio>
+      <app-radio name="relocate" v-model="relocateValue" value="yes">
+        Да
+      </app-radio>
+      <app-radio name="relocate" v-model="relocateValue" value="no">
+        Нет
+      </app-radio>
       <p>Что знаешь во Vue?</p>
-      <app-checkbox>Vuex</app-checkbox>
-      <app-checkbox>Vue CLI</app-checkbox>
-      <app-checkbox>Vue Router</app-checkbox>
+      <app-checkbox v-model="skills['Vuex']">Vuex</app-checkbox>
+      <app-checkbox v-model="skills['Vue CLI']">Vue CLI</app-checkbox>
+      <app-checkbox v-model="skills['Vue Router']">Vue Router</app-checkbox>
       <hr />
       <app-button type="submit">Отправить</app-button>
     </form>

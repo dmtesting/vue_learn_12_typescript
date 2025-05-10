@@ -1,13 +1,23 @@
 <script>
 export default {
+  emits: "update:modelValue",
   props: {
-    value: {
+    name: {
+      type: String,
+      required: false,
+    },
+    modelValue: {
       type: String,
       required: false,
     },
     placeholder: {
       type: String,
       required: false,
+    },
+    renderStrategy: {
+      type: String,
+      required: false,
+      default: "default", // 'default' | 'number'
     },
     changeStrategy: {
       type: String,
@@ -37,6 +47,16 @@ export default {
       }
 
       this.prevValue = evt.target.value;
+      this.$emit("update:modelValue", evt.target.value);
+    },
+  },
+  computed: {
+    type() {
+      if (this.renderStrategy === "number") {
+        return "number";
+      }
+
+      return "text";
     },
   },
 };
@@ -45,17 +65,19 @@ export default {
 <template>
   <label class="container">
     <input
-      v-if="typeof value === 'string'"
-      type="text"
+      v-if="typeof modelValue === 'string'"
       class="input"
-      :value="value"
+      :type="type"
+      :name="name"
+      :value="modelValue"
       :placeholder="placeholder"
       @input="handleInput($event)"
     />
     <input
       v-else
-      type="text"
       class="input"
+      :type="type"
+      :name="name"
       :placeholder="placeholder"
       @input="handleInput($event)"
     />
