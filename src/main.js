@@ -9,26 +9,9 @@ import Select from "./uikit-option-api/select.vue";
 import Alert from "./uikit-option-api/alert.vue";
 import Loader from "./uikit-option-api/loader.vue";
 import Modal from "./uikit-option-api/modal.vue";
-import translatePlugin from "./translatePlugin";
-
-const ru = {
-  app: {
-    title: "Как работают плагины в Vue?",
-    langBtn: "Сменить язык",
-  },
-};
-
-const en = {
-  app: {
-    title: "How plugins work in Vue?",
-    langBtn: "Change language",
-  },
-};
 
 document.fonts.ready.then(() => {
   const app = createApp(App);
-
-  app.use(translatePlugin, { ru, en });
 
   app.component("AppButton", Button);
   app.component("AppInput", Input);

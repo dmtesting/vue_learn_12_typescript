@@ -1,26 +1,23 @@
 <script>
 export default {
   components: {},
-  inject: ["changeI18N"],
   data() {
-    return {};
+    return {
+      modal: false,
+    };
   },
-  methods: {
-    changeLang() {
-      this.changeI18N("en");
-      this.$forceUpdate();
-    },
-  },
+  methods: {},
 };
 </script>
 
 <template>
   <div class="wrapper">
     <div class="card">
-      <h2>{{ $i18n("app.title") }}</h2>
-      <app-button :key="$i18n('app.langBtn')" @click="changeLang">
-        {{ $i18n("app.langBtn") }}
-      </app-button>
+      <h2>Модальные окна</h2>
+      <app-button @click="modal = true">Открыть</app-button>
+      <Teleport to="body" disabled>
+        <app-modal v-if="modal" @close="modal = false"></app-modal>
+      </Teleport>
     </div>
   </div>
 </template>
