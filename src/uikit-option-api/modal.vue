@@ -20,7 +20,8 @@ export default {
   opacity: 0.4;
 }
 .modal {
-  position: fixed;
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;

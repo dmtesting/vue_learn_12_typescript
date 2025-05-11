@@ -15,7 +15,7 @@ export default {
     <div class="card">
       <h2>Модальные окна</h2>
       <app-button @click="modal = true">Открыть</app-button>
-      <Teleport to="body" disabled>
+      <Teleport to="body">
         <app-modal v-if="modal" @close="modal = false"></app-modal>
       </Teleport>
     </div>
@@ -38,7 +38,7 @@ export default {
   margin-top: 16px;
   background: #fff;
   border-radius: 8px;
-  max-width: 400px;
+  max-width: 600px;
 }
 .form {
   padding: 16px;
