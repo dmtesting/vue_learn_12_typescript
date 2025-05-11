@@ -1,16 +1,27 @@
 <script>
 export default {
   components: {},
+  inject: ["changeI18N"],
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    changeLang() {
+      this.changeI18N("en");
+      this.$forceUpdate();
+    },
+  },
 };
 </script>
 
 <template>
   <div class="wrapper">
-    <div class="card"></div>
+    <div class="card">
+      <h2>{{ $i18n("app.title") }}</h2>
+      <app-button :key="$i18n('app.langBtn')" @click="changeLang">
+        {{ $i18n("app.langBtn") }}
+      </app-button>
+    </div>
   </div>
 </template>
 
