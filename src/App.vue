@@ -1,9 +1,11 @@
 <script>
 import colorDirective from "./colorDirective";
+import hoverDirective from "./hoverDirective";
 
 export default {
   directives: {
     color: colorDirective,
+    hover: hoverDirective,
   },
   components: {},
   data() {
@@ -22,6 +24,7 @@ export default {
       <h2 class="header" v-color:[argColor].blink="myColor">
         Разговор про директивы
       </h2>
+      <h2 class="header" v-hover="'blue'">Разговор про директивы</h2>
       <div class="input-wrapper">
         <app-input placeholder="Поле ввода" />
       </div>
