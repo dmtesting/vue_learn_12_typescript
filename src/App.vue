@@ -1,36 +1,32 @@
 <template>
-  <the-navbar></the-navbar>
   <div class="container">
     <div class="card">
-      <h2>Блок про Vuex</h2>
-      <p>Счетчик {{ counter }} ({{ doubleCounter }})</p>
-      <app-button @click="add">increment</app-button>
-      <div style="height: 8px"></div>
-      <app-button @click="incrementAsync">increment async</app-button>
+      <h2>Vue Composition API</h2>
+      <small>data, methods, computed, watch</small>
+      <hr />
+      <p>Название: {{ name }}</p>
+      <p>Версия: {{ version }}</p>
+      <app-button @click="change">Изменить</app-button>
     </div>
   </div>
 </template>
 
 <script>
-import TheNavbar from "./the-navbar.vue";
-import { mapGetters } from "vuex";
+import { ref } from "vue";
+
+const name = ref("VueJS");
+const version = ref(3);
 
 export default {
-  components: {
-    TheNavbar,
+  setup() {
+    return { name, version };
   },
-  data() {
-    return {};
-  },
-  computed: {
-    ...mapGetters("count", ["counter", "doubleCounter"]),
-  },
+  components: {},
+  computed: {},
   methods: {
-    add() {
-      this.$store.commit({ type: "count/add", value: 5 });
-    },
-    incrementAsync() {
-      this.$store.dispatch("count/incrementAsync", { value: 10, delay: 2000 });
+    change() {
+      this.name = "Vue JS";
+      this.version = 4;
     },
   },
 };
