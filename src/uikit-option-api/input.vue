@@ -2,6 +2,14 @@
 export default {
   emits: "update:modelValue",
   props: {
+    id: {
+      type: String,
+      required: false,
+    },
+    type: {
+      type: String,
+      default: null,
+    },
     name: {
       type: String,
       required: false,
@@ -51,7 +59,7 @@ export default {
     },
   },
   computed: {
-    type() {
+    calculatedType() {
       if (this.renderStrategy === "number") {
         return "number";
       }
@@ -67,7 +75,8 @@ export default {
     <input
       v-if="typeof modelValue === 'string'"
       class="input"
-      :type="type"
+      :id="id"
+      :type="type ?? calculatedType"
       :name="name"
       :value="modelValue"
       :placeholder="placeholder"
@@ -76,7 +85,8 @@ export default {
     <input
       v-else
       class="input"
-      :type="type"
+      :id="id"
+      :type="type ?? calculatedType"
       :name="name"
       :placeholder="placeholder"
       @input="handleInput($event)"

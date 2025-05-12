@@ -1,50 +1,83 @@
 <script>
+import TheNavbar from "./the-navbar.vue";
+
 export default {
-  components: {},
+  components: {
+    TheNavbar,
+  },
   data() {
     return {
-      modal: false,
+      isAuth: true,
     };
   },
-  methods: {},
+  methods: {
+    login() {
+      this.isAuth = true;
+      this.$router.push(this.$route.query.from ?? "/dashboard");
+    },
+    logout() {
+      this.isAuth = false;
+      this.$router.push({
+        path: "/login",
+        query: {
+          from: this.$route.path,
+        },
+      });
+    },
+  },
+  provide() {
+    return {
+      login: this.login,
+      logout: this.logout,
+      emails: [
+        { id: "1", theme: "Купил себе PlayStation 5" },
+        { id: "2", theme: "Выучил Vue Router" },
+        { id: "3", theme: "Хочу изучить весь Vue" },
+        { id: "4", theme: "А следующий блок про Vuex!" },
+        { id: "5", theme: "А что там насчет Vue Hooks?" },
+      ],
+    };
+  },
 };
 </script>
 
 <template>
-  <div class="wrapper">
-    <div class="card">
-      <h2>Модальные окна</h2>
-      <app-button @click="modal = true">Открыть</app-button>
-      <Teleport to="body">
-        <app-modal v-if="modal" @close="modal = false"></app-modal>
-      </Teleport>
-    </div>
+  <the-navbar :visible="isAuth"></the-navbar>
+  <div class="container">
+    <router-view></router-view>
   </div>
 </template>
 
-<style scoped>
-.header {
-  padding: 16px;
-  margin: 0;
+<style>
+ul {
+  all: unset;
+}
+li {
+  all: unset;
+}
+a {
+  all: unset;
+  cursor: pointer;
+}
+button {
+  all: unset;
+}
+.active {
+  text-decoration: underline;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
 }
 .card {
   background: #fff;
-}
-.input-wrapper {
-  padding: 16px;
-}
-.wrapper {
+  width: 600px;
   margin: auto;
-  margin-top: 16px;
-  background: #fff;
-  border-radius: 8px;
-  max-width: 600px;
+  padding: 8px;
+  border-radius: 4px;
 }
-.form {
-  padding: 16px;
-  margin: auto;
-}
-.h-gap {
-  height: 8px;
+.no-padding {
+  padding: 0;
 }
 </style>

@@ -78,4 +78,7 @@ export default {
     background: #ca0f05;
   }
 }
+.inline {
+  display: inline-flex;
+}
 </style>
