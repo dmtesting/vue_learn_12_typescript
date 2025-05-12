@@ -1,15 +1,40 @@
+<template>
+  <the-navbar></the-navbar>
+  <div class="container">
+    <div class="card">
+      <h2>Блок про Vuex</h2>
+      <p>Счетчик {{ counter }} ({{ doubleCounter }})</p>
+      <app-button @click="add">increment</app-button>
+      <div style="height: 8px"></div>
+      <app-button @click="incrementAsync">increment async</app-button>
+    </div>
+  </div>
+</template>
+
 <script>
+import TheNavbar from "./the-navbar.vue";
+import { mapGetters } from "vuex";
+
 export default {
-  components: {},
+  components: {
+    TheNavbar,
+  },
   data() {
     return {};
   },
+  computed: {
+    ...mapGetters("count", ["counter", "doubleCounter"]),
+  },
+  methods: {
+    add() {
+      this.$store.commit({ type: "count/add", value: 5 });
+    },
+    incrementAsync() {
+      this.$store.dispatch("count/incrementAsync", { value: 10, delay: 2000 });
+    },
+  },
 };
 </script>
-
-<template>
-  <div class="container"></div>
-</template>
 
 <style>
 ul {
