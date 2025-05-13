@@ -2,32 +2,49 @@
   <div class="container">
     <div class="card">
       <h2>Vue Composition API</h2>
-      <small>data, methods, computed, watch</small>
-      <hr />
-      <p>Название: {{ name }}</p>
-      <p>Версия: {{ version }}</p>
+      <div style="height: 8px"></div>
+      <input v-model="firstName" placeholder="First name" />
+      <div style="height: 8px"></div>
       <app-button @click="change">Изменить</app-button>
+      <div style="height: 8px"></div>
+      <app-button @click="console.log">button</app-button>
     </div>
+    <framework-info @change-version="changeVersion">
+      <div>framework</div>
+    </framework-info>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
-
-const name = ref("VueJS");
-const version = ref(3);
+import FrameworkInfo from "./FrameworkInfo.vue";
+import { ref, provide } from "vue";
 
 export default {
-  setup() {
-    return { name, version };
+  components: {
+    FrameworkInfo,
   },
-  components: {},
-  computed: {},
-  methods: {
-    change() {
-      this.name = "Vue JS";
-      this.version = 4;
-    },
+  setup() {
+    const name = ref("VueJS");
+    const version = ref(3);
+    const firstName = ref("");
+
+    provide("name", name);
+    provide("version", version);
+
+    const changeInfo = () => {
+      name.value = "Vue JS !";
+      version.value = 4;
+    };
+
+    return {
+      name,
+      version,
+      firstName,
+      change: changeInfo,
+      changeVersion(value) {
+        version.value = value;
+      },
+    };
   },
 };
 </script>
@@ -51,6 +68,8 @@ button {
 }
 .container {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
   justify-content: center;
   padding-top: 8px;
 }
