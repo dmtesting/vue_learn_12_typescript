@@ -3,18 +3,7 @@
     <h3>Vue Composition API</h3>
     <ul class="navbar-menu">
       <li>
-        <router-link to="/dashboard">Главная</router-link>
-      </li>
-      <li>
-        <router-link to="/mail" custom #="{ navigate, href }">
-          <a
-            href="#"
-            @click="navigate"
-            :class="{ active: this.$route.path.includes(href) }"
-          >
-            Почта
-          </a>
-        </router-link>
+        <router-link to="/home">Главная</router-link>
       </li>
       <li>
         <a href="#">Выйти</a>

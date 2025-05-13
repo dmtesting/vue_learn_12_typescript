@@ -14,14 +14,12 @@
 </template>
 
 <script>
-import FrameworkInfo from "./FrameworkInfo.vue";
-import TheNavbar from "./the-navbar.vue";
+import FrameworkInfo from "../FrameworkInfo.vue";
 import { ref, provide } from "vue";
 
 export default {
   components: {
     FrameworkInfo,
-    TheNavbar,
   },
   setup() {
     const name = ref("VueJS");
