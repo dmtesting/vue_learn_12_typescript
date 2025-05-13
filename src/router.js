@@ -1,7 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
+import HomePage from "./HomePage.vue";
 
 const router = createRouter({
-  routes: [],
+  routes: [
+    {
+      path: "/home",
+      alias: "/",
+      component: HomePage,
+    },
+  ],
   history: createWebHistory(),
   linkActiveClass: "active",
   linkExactActiveClass: "active",
