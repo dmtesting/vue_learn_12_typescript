@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <the-navbar visible></the-navbar>
     <div class="card">
       <h2>Vue Composition API</h2>
       <div style="height: 8px"></div>
@@ -17,11 +18,13 @@
 
 <script>
 import FrameworkInfo from "./FrameworkInfo.vue";
+import TheNavbar from "./the-navbar.vue";
 import { ref, provide } from "vue";
 
 export default {
   components: {
     FrameworkInfo,
+    TheNavbar,
   },
   setup() {
     const name = ref("VueJS");
