@@ -6,6 +6,9 @@
         <router-link to="/home">Главная</router-link>
       </li>
       <li>
+        <router-link to="/reusable">Переиспользование</router-link>
+      </li>
+      <li>
         <a href="#">Выйти</a>
       </li>
     </ul>

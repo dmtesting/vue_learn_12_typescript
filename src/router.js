@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "./views/HomePage.vue";
+import ReusablePage from "./views/ReusablePage.vue";
 
 const router = createRouter({
   routes: [
@@ -7,6 +8,10 @@ const router = createRouter({
       path: "/home",
       alias: "/",
       component: HomePage,
+    },
+    {
+      path: "/reusable",
+      component: ReusablePage,
     },
   ],
   history: createWebHistory(),
