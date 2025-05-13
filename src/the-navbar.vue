@@ -1,15 +1,12 @@
 <template>
   <header class="header" v-if="visible">
-    <h3>Vue Composition API</h3>
+    <h3>Freelance</h3>
     <ul class="navbar-menu">
       <li>
         <router-link to="/home">Главная</router-link>
       </li>
       <li>
-        <router-link to="/reusable">Переиспользование</router-link>
-      </li>
-      <li>
-        <router-link to="/vuex">Vuex</router-link>
+        <router-link to="/tasks/create">Создать</router-link>
       </li>
     </ul>
   </header>

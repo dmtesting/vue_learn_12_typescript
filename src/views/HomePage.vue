@@ -1,57 +1,43 @@
 <template>
-  <app-alert
-    v-if="alert"
-    @close="close"
-    title="Работаем с Composition API"
-  ></app-alert>
-  <div class="card">
-    <h2>Vue Composition API</h2>
-    <div style="height: 8px"></div>
-    <input v-model="firstName" placeholder="First name" />
-    <div style="height: 8px"></div>
-    <app-button @click="change">Изменить</app-button>
-    <div style="height: 8px"></div>
-    <app-button @click="toggle">Alert</app-button>
+  <div class="wrapper">
+    <h3 class="all-tasks">Всего активных задач: {{ tasks.length }}</h3>
+    <div class="cards-wrapper">
+      <TaskCard
+        v-for="task in tasks"
+        :id="task.id"
+        :status="task.status"
+        :title="task.title"
+        :description="task.description"
+        @open-task="$router.push(`/task/${$event}`)"
+      />
+    </div>
   </div>
-  <framework-info @change-version="changeVersion">
-    <div>framework</div>
-  </framework-info>
 </template>
 
 <script>
-import FrameworkInfo from "../FrameworkInfo.vue";
-import { ref, provide } from "vue";
-import useAlert from "@/use/alert";
+import TaskCard from "@/components/TaskCard.vue";
 
 export default {
-  components: {
-    FrameworkInfo,
-  },
-  setup() {
-    const name = ref("VueJS");
-    const version = ref(3);
-    const firstName = ref("");
-
-    provide("name", name);
-    provide("version", version);
-
-    const changeInfo = () => {
-      name.value = "Vue JS !";
-      version.value = 4;
-    };
-
+  components: { TaskCard },
+  data() {
     return {
-      name,
-      version,
-      firstName,
-      ...useAlert(),
-      change: changeInfo,
-      changeVersion(value) {
-        version.value = value;
-      },
+      tasks: this.$store.state.tasks,
     };
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.wrapper {
+  padding: 8px;
+}
+.all-tasks {
+  color: #fff;
+  margin-bottom: 16px;
+}
+.cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+</style>

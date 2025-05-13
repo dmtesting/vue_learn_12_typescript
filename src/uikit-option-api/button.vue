@@ -50,12 +50,18 @@ export default {
   background: #fff;
 
   transition: all 0.7s ease;
+  &:disabled {
+    background: #fff;
+    border-color: #aaa;
+    color: #aaa;
+    cursor: not-allowed;
+  }
 }
 .primary {
   border: 2px solid #138b4d;
   color: #138b4d;
   text-transform: uppercase;
-  &:hover {
+  &:hover:not(:disabled) {
     color: #fff;
     border-color: #fff;
     background: #138b4d;
@@ -64,7 +70,7 @@ export default {
 .secondary {
   border: 2px solid transparent;
   color: #b49900;
-  &:hover {
+  &:hover:not(:disabled) {
     text-decoration: underline;
   }
 }
@@ -72,10 +78,20 @@ export default {
   border: 2px solid #ca0f05;
   color: #ca0f05;
   text-transform: uppercase;
-  &:hover {
+  &:hover:not(:disabled) {
     color: #fff;
     border-color: #fff;
     background: #ca0f05;
+  }
+}
+.confirm {
+  border: 2px solid #2207f0;
+  color: #2207f0;
+  text-transform: uppercase;
+  &:hover:not(:disabled) {
+    color: #fff;
+    border-color: #fff;
+    background: #2207f0;
   }
 }
 .inline {

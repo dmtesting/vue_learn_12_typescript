@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "./views/HomePage.vue";
-import ReusablePage from "./views/ReusablePage.vue";
-import VuexPage from "./views/VuexPage.vue";
+import TaskPage from "./views/TaskPage.vue";
+import CreateTaskPage from "./views/CreateTaskPage.vue";
 
 const router = createRouter({
   routes: [
@@ -11,12 +11,13 @@ const router = createRouter({
       component: HomePage,
     },
     {
-      path: "/reusable",
-      component: ReusablePage,
+      path: "/task/:taskId",
+      component: TaskPage,
+      props: true,
     },
     {
-      path: "/vuex",
-      component: VuexPage,
+      path: "/tasks/create",
+      component: CreateTaskPage,
     },
   ],
   history: createWebHistory(),
