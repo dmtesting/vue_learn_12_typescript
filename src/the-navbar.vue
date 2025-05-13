@@ -9,7 +9,7 @@
         <router-link to="/reusable">Переиспользование</router-link>
       </li>
       <li>
-        <a href="#">Выйти</a>
+        <router-link to="/vuex">Vuex</router-link>
       </li>
     </ul>
   </header>

@@ -34,7 +34,8 @@ export default {
 <style scoped>
 .alert {
   border-left: 4px solid transparent;
-  padding-left: 16px;
+  padding: 16px;
+  background: #fff;
 }
 .title {
   margin: 0;

@@ -2,9 +2,9 @@
   <div class="card">
     <p>Название: {{ name }}</p>
     <p>Версия: {{ version }} ({{ doubleVersion }})</p>
-    <app-button @click="$emit('change-version', 3)"
-      >Изменить на 3 версию</app-button
-    >
+    <app-button @click="$emit('change-version', 3)">
+      Изменить на 3 версию
+    </app-button>
   </div>
 </template>
 

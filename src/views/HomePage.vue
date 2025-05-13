@@ -1,4 +1,9 @@
 <template>
+  <app-alert
+    v-if="alert"
+    @close="close"
+    title="Работаем с Composition API"
+  ></app-alert>
   <div class="card">
     <h2>Vue Composition API</h2>
     <div style="height: 8px"></div>
@@ -6,7 +11,7 @@
     <div style="height: 8px"></div>
     <app-button @click="change">Изменить</app-button>
     <div style="height: 8px"></div>
-    <app-button @click="console.log">button</app-button>
+    <app-button @click="toggle">Alert</app-button>
   </div>
   <framework-info @change-version="changeVersion">
     <div>framework</div>
@@ -16,6 +21,7 @@
 <script>
 import FrameworkInfo from "../FrameworkInfo.vue";
 import { ref, provide } from "vue";
+import useAlert from "@/use/alert";
 
 export default {
   components: {
@@ -38,6 +44,7 @@ export default {
       name,
       version,
       firstName,
+      ...useAlert(),
       change: changeInfo,
       changeVersion(value) {
         version.value = value;

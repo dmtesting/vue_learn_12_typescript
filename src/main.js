@@ -10,6 +10,7 @@ import Alert from "./uikit-option-api/alert.vue";
 import Loader from "./uikit-option-api/loader.vue";
 import Modal from "./uikit-option-api/modal.vue";
 import router from "./router";
+import store from "./store";
 
 document.fonts.ready.then(() => {
   const app = createApp(App);
@@ -24,6 +25,7 @@ document.fonts.ready.then(() => {
   app.component("AppModal", Modal);
 
   app.use(router);
+  app.use(store);
 
   app.mount("#app");
 });
