@@ -23,6 +23,7 @@
       <div style="display: flex; gap: 8px">
         <app-button
           renderStrategy="confirm"
+          :disabled="currentTask.status === 'in_progress'"
           @click="changeStatus('in_progress')"
         >
           Взять в работу
@@ -30,7 +31,11 @@
         <app-button renderStrategy="primary" @click="remove">
           Завершить
         </app-button>
-        <app-button renderStrategy="danger" @click="changeStatus('rejected')">
+        <app-button
+          renderStrategy="danger"
+          :disabled="currentTask.status === 'rejected'"
+          @click="changeStatus('rejected')"
+        >
           Отменить
         </app-button>
       </div>
